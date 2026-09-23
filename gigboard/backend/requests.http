@@ -107,7 +107,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJkMjNhYWQzL
 ###
 
 ### Update a venue - requires ADMIN token (expect 200)
-PUT http://localhost:3000/api/venues/REPLACE_WITH_REAL_ID
+PUT http://localhost:3000/api/venues/ADMIN
 Content-Type: application/json
 Authorization: Bearer REPLACE_WITH_ADMIN_TOKEN
 
@@ -121,13 +121,13 @@ Authorization: Bearer REPLACE_WITH_ADMIN_TOKEN
 ###
 
 ### Delete a venue - requires ADMIN token (expect 204 no body)
-DELETE http://localhost:3000/api/venues/REPLACE_WITH_REAL_ID
-Authorization: Bearer REPLACE_WITH_ADMIN_TOKEN
+DELETE http://localhost:3000/api/venues/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJkMjNhYWQzLTg1ZDEtNDhjMC1iYzQ2LWYyZDBmZmY1NWQ0NiIsInJvbGUiOiJBVFRFTkRFRSIsImlhdCI6MTc5MDE1MDk4MiwiZXhwIjoxNzkwMTU0NTgyfQ.Vh4Fz6RRHylHUv_BMFBPLEi7Ms4-veVMcZ5ypoD2o-E
 
 ###
 
 ### Delete a venue without a token (expect 401)
-DELETE http://localhost:3000/api/venues/REPLACE_WITH_REAL_ID
+DELETE http://localhost:3000/api/venues/1
 
 ###
 

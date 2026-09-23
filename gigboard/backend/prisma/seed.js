@@ -18,6 +18,7 @@ async function main() {
 
   await prisma.venue.create({
     data: {
+      id: "1",
       name: "The Vault",
       suburb: "Dunedin Central",
       city: "Dunedin",
