@@ -4,7 +4,7 @@ Identify at least eight distinct faults. At least six must be faults you go on t
 
 | #   | Location | What is wrong | Correct behaviour | How found | Severity | Fixed? |
 | --- | -------- | ------------- | ----------------- | --------- | -------- | ------ |
-| 1   |          |               |                   |           |          |        |
+| 1   |#1 Location:           |               |                   |           |          |        |
 | 2   |          |               |                   |           |          |        |
 | 3   |          |               |                   |           |          |        |
 | 4   |          |               |                   |           |          |        |
