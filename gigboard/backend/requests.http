@@ -1,0 +1,220 @@
+### --- AUTH ---
+
+### Register a new user (expect 201)
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Organiser",
+  "emailAddress": "jane@gigboard.com",
+  "password": "password123"
+}
+
+###
+
+### Register with duplicate email (expect 409)
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Organiser",
+  "emailAddress": "jane@gigboard.com",
+  "password": "password123"
+}
+
+###
+
+### Login (expect 200 with token - copy token for requests below)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "emailAddress": "jane@gigboard.com",
+  "password": "password123"
+}
+
+###
+
+### Login with wrong password (expect 401 - same message as wrong email)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "emailAddress": "jane@gigboard.com",
+  "password": "wrongpassword"
+}
+
+###
+
+### --- VENUES ---
+
+### Get all venues (expect 200 with data array)
+GET http://localhost:3000/api/venues
+
+###
+
+### Get one venue - includes nested gigs array (expect 200 with data object containing gigs)
+GET http://localhost:3000/api/venues/REPLACE_WITH_REAL_ID
+
+###
+
+### Get a venue that does not exist (expect 404 with message)
+GET http://localhost:3000/api/venues/00000000-0000-0000-0000-000000000000
+
+###
+
+### Create a venue - requires ADMIN token (expect 201)
+POST http://localhost:3000/api/venues
+Content-Type: application/json
+Authorization: Bearer REPLACE_WITH_ADMIN_TOKEN
+
+{
+  "name": "The Dunedin Sound",
+  "suburb": "South Dunedin",
+  "city": "Dunedin",
+  "capacity": 150
+}
+
+###
+
+### Create a venue without a token (expect 401)
+POST http://localhost:3000/api/venues
+Content-Type: application/json
+
+{
+  "name": "Unauthorised Venue",
+  "suburb": "Anywhere",
+  "city": "Dunedin",
+  "capacity": 100
+}
+
+###
+
+### Create a venue as ORGANISER (expect 403 - only ADMIN may manage venues)
+POST http://localhost:3000/api/venues
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJkMjNhYWQzLTg1ZDEtNDhjMC1iYzQ2LWYyZDBmZmY1NWQ0NiIsInJvbGUiOiJBVFRFTkRFRSIsImlhdCI6MTc5MDE0OTE0OCwiZXhwIjoxNzkwMTUyNzQ4fQ.B-SyVn5OR8W5BQ_lPxdMywgJRGfKyhs55qHCGi9MpFc
+
+{
+  "name": "Organiser Venue",
+  "suburb": "Anywhere",
+  "city": "Dunedin",
+  "capacity": 100
+}
+
+###
+
+### Update a venue - requires ADMIN token (expect 200)
+PUT http://localhost:3000/api/venues/REPLACE_WITH_REAL_ID
+Content-Type: application/json
+Authorization: Bearer REPLACE_WITH_ADMIN_TOKEN
+
+{
+  "name": "The Dunedin Sound (Updated)",
+  "suburb": "South Dunedin",
+  "city": "Dunedin",
+  "capacity": 200
+}
+
+###
+
+### Delete a venue - requires ADMIN token (expect 204 no body)
+DELETE http://localhost:3000/api/venues/REPLACE_WITH_REAL_ID
+Authorization: Bearer REPLACE_WITH_ADMIN_TOKEN
+
+###
+
+### Delete a venue without a token (expect 401)
+DELETE http://localhost:3000/api/venues/REPLACE_WITH_REAL_ID
+
+###
+
+### Hit an unknown route (expect 404 JSON from catch-all, not HTML)
+GET http://localhost:3000/api/nonexistent
+
+###
+
+### --- GIGS ---
+
+### Get all gigs (expect 200 with data array, each gig includes venue name)
+GET http://localhost:3000/api/gigs
+
+###
+
+### Get one gig (expect 200 with data object including venue)
+GET http://localhost:3000/api/gigs/REPLACE_WITH_REAL_ID
+
+###
+
+### Get a gig that does not exist (expect 404 with message)
+GET http://localhost:3000/api/gigs/00000000-0000-0000-0000-000000000000
+
+###
+
+### Create a gig - requires ORGANISER or ADMIN token (expect 201)
+POST http://localhost:3000/api/gigs
+Content-Type: application/json
+Authorization: Bearer REPLACE_WITH_ORGANISER_TOKEN
+
+{
+  "title": "Summer Sounds",
+  "artist": "The Chills",
+  "date": "2025-02-14T20:00:00.000Z",
+  "ticketPrice": 25.00,
+  "venueId": "REPLACE_WITH_REAL_VENUE_ID"
+}
+
+###
+
+### Create a gig without a token (expect 401)
+POST http://localhost:3000/api/gigs
+Content-Type: application/json
+
+{
+  "title": "Unauthorised Gig",
+  "artist": "Nobody",
+  "date": "2025-02-14T20:00:00.000Z",
+  "ticketPrice": 0,
+  "venueId": "REPLACE_WITH_REAL_VENUE_ID"
+}
+
+###
+
+### Create a gig with a venueId that does not exist (expect 404 with message)
+POST http://localhost:3000/api/gigs
+Content-Type: application/json
+Authorization: Bearer REPLACE_WITH_ORGANISER_TOKEN
+
+{
+  "title": "Ghost Gig",
+  "artist": "Nobody",
+  "date": "2025-02-14T20:00:00.000Z",
+  "ticketPrice": 10,
+  "venueId": "00000000-0000-0000-0000-000000000000"
+}
+
+###
+
+### Update a gig - requires ORGANISER or ADMIN token (expect 200)
+PUT http://localhost:3000/api/gigs/REPLACE_WITH_REAL_ID
+Content-Type: application/json
+Authorization: Bearer REPLACE_WITH_ORGANISER_TOKEN
+
+{
+  "title": "Summer Sounds (Sold Out)",
+  "ticketPrice": 30.00
+}
+
+###
+
+### Delete a gig - requires ORGANISER or ADMIN token (expect 204 no body)
+DELETE http://localhost:3000/api/gigs/REPLACE_WITH_REAL_ID
+Authorization: Bearer REPLACE_WITH_ORGANISER_TOKEN
+
+###
+
+### Delete a venue that has gigs - gigs should cascade-delete (expect 204)
+DELETE http://localhost:3000/api/venues/REPLACE_WITH_VENUE_WITH_GIGS_ID
+Authorization: Bearer REPLACE_WITH_ADMIN_TOKEN
