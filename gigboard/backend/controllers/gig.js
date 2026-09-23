@@ -1,11 +1,12 @@
 import gigRepository from "../repositories/gig.js";
+import errorHandler from "../utils/errorHandler.js";
 
 const getGigs = async (req, res) => {
   try {
     const gigs = await gigRepository.findAll();
     return res.status(200).json({ data: gigs });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return errorHandler(res, err);
   }
 };
 
@@ -15,12 +16,13 @@ const getGig = async (req, res) => {
     const gig = await gigRepository.findById(id);
     return res.status(200).json({ data: gig });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return errorHandler(res, err);
   }
 };
 
 const createGig = async (req, res) => {
   try {
+    const { title, artist, date, ticketPrice, venueId } = req.body;
     const gig = await gigRepository.create({
       title,
       artist,
@@ -33,7 +35,7 @@ const createGig = async (req, res) => {
       data: gig,
     });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return errorHandler(res, err);
   }
 };
 
@@ -57,7 +59,7 @@ const updateGig = async (req, res) => {
       data: updated,
     });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return errorHandler(res, err);
   }
 };
 
@@ -73,7 +75,7 @@ const deleteGig = async (req, res) => {
       message: `Gig with id: ${id} successfully deleted`,
     });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return errorHandler(res, err);
   }
 };
 
