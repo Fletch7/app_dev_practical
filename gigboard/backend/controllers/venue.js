@@ -1,11 +1,12 @@
 import venueRepository from "../repositories/venue.js";
+import errorHandler from "../utils/errorHandler.js";
 
 const getVenues = async (req, res) => {
   try {
     const venues = await venueRepository.findAll();
     return res.status(200).json({ data: venues });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return errorHandler(res, err);
   }
 };
 
@@ -18,7 +19,7 @@ const getVenue = async (req, res) => {
     }
     return res.status(200).json({ data: venue });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return errorHandler(res, err);
   }
 };
 
@@ -36,7 +37,7 @@ const createVenue = async (req, res) => {
       data: venue,
     });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return errorHandler(res, err);
   }
 };
 
@@ -59,7 +60,7 @@ const updateVenue = async (req, res) => {
       data: updated,
     });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return errorHandler(res, err);
   }
 };
 
@@ -75,7 +76,7 @@ const deleteVenue = async (req, res) => {
       message: `Venue with id: ${id} successfully deleted`,
     });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return errorHandler(res, err);
   }
 };
 
