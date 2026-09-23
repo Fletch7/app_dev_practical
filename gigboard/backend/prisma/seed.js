@@ -4,7 +4,7 @@ import bcryptjs from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
-  const password = await bcryptjs.hash("password123", 10);
+  const password = await bcryptjs.hash("adminpassword", 10);
 
   await prisma.user.create({
     data: {

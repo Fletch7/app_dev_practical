@@ -89,4 +89,15 @@ What's wrong: When registering a user, the role assigned to that user is 'true'.
 
 Correct behaviour: 
 
-#8 ALL ERROR MESSAGES GENERIC. Too big a task to add cusomtised error messages for each error. This is one I won't fix.
+#7 
+Location: prisma/schema.prisma
+
+What's wrong: No admin account as being generated in the first place...... Spent an hour trying to figure out why the attendee token wasn't working.
+
+Correct behaviour: Added the enum 'Roles' consisiting of all three roles, then an http request to obtain an ADMIN token. God damn.
+
+Severity: Hysteria inducing. Noone actually had any role other than ATTENDEE.
+
+
+
+#9 ALL ERROR MESSAGES GENERIC. Too big a task to add cusomtised error messages for each error. This is one I won't fix.

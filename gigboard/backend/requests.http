@@ -35,6 +35,14 @@ Content-Type: application/json
   "password": "password123"
 }
 
+### Login as ADMIN 
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "emailAddress": "admin@gigboard.com",
+  "password": "adminpassword"
+}
 ###
 
 ### Login with wrong password (expect 401 - same message as wrong email)
@@ -56,7 +64,7 @@ GET http://localhost:3000/api/venues
 ###
 
 ### Get one venue - includes nested gigs array (expect 200 with data object containing gigs)
-GET http://localhost:3000/api/venues/REPLACE_WITH_REAL_ID
+GET http://localhost:3000/api/venues/1
 
 ###
 
@@ -121,8 +129,8 @@ Authorization: Bearer REPLACE_WITH_ADMIN_TOKEN
 ###
 
 ### Delete a venue - requires ADMIN token (expect 204 no body)
-DELETE http://localhost:3000/api/venues/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJkMjNhYWQzLTg1ZDEtNDhjMC1iYzQ2LWYyZDBmZmY1NWQ0NiIsInJvbGUiOiJBVFRFTkRFRSIsImlhdCI6MTc5MDE1MDk4MiwiZXhwIjoxNzkwMTU0NTgyfQ.Vh4Fz6RRHylHUv_BMFBPLEi7Ms4-veVMcZ5ypoD2o-E
+DELETE http://localhost:3000/api/venues/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI2OTgwOGM5LTM4ZTAtNDI3OS1iMzJhLTljNjQyOWY5ZDRkNiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc5MDE1NzMwMCwiZXhwIjoxNzkwMTYwOTAwfQ.1PnlIkysmPkxu5MuHREJH2CSqdAv7_KzuXm3EXFCWgI
 
 ###
 
