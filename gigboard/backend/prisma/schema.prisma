@@ -6,6 +6,11 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+enum Role {
+  ADMIN
+  ORGANISER
+  ATTENDEE
+}
 
 model User {
   id           String   @id @default(uuid())

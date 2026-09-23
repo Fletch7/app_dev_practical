@@ -6,6 +6,12 @@ const register = async (req, res) => {
   try {
     const { firstName, lastName, emailAddress, password } = req.body;
 
+    const allowedRoles = ["ORGANISER", "ATTENDEE"];
+    const assignedRole = req.body.role || "ATTENDEE";
+    if (!allowedRoles.includes(assignedRole)) {
+      return res.status(400).json({ message: "Invalid role specified" });
+    }
+
     const existing = await prisma.user.findUnique({ where: { emailAddress } });
     if (existing) {
       return res
@@ -16,7 +22,7 @@ const register = async (req, res) => {
     const hashedPassword = await bcryptjs.hash(password, 10);
 
     const user = await prisma.user.create({
-      data: { firstName, lastName, emailAddress, password: hashedPassword },
+      data: { firstName, lastName, emailAddress, password: hashedPassword, role: assignedRole },
       select: {
         id: true,
         firstName: true,

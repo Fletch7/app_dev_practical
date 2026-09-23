@@ -156,7 +156,8 @@ GET http://localhost:3000/api/gigs/00000000-0000-0000-0000-000000000000
 ### Create a gig - requires ORGANISER or ADMIN token (expect 201)
 POST http://localhost:3000/api/gigs
 Content-Type: application/json
-Authorization: Bearer REPLACE_WITH_ORGANISER_TOKEN
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNjMzI4ZWMxLTIxZjctNDUwMC1iYTM3LTJmNDE4M2YyZGQ1MiIsInJvbGUiOiJBVFRFTkRFRSIsImlhdCI6MTc5MDE1NTI2OCwiZXhwIjoxNzkwMTU4ODY4fQ.DUacLLFk3q-VW8uFlbYKdlPYA-ikoDB186jva_sXZ7g
+
 
 {
   "title": "Summer Sounds",

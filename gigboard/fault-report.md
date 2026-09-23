@@ -83,5 +83,10 @@ Correct behaviour: The returned message would say 'Incorrect email or password' 
 Severity: Low
 
 #6
+Location: /controllers/auth.js | Line 25
+
+What's wrong: When registering a user, the role assigned to that user is 'true'. This means when the whole database is seeded, any created users are given the role 'ATTENDEE', because the user role is defaulted to ATTENDEE. This error is in the schema.prisma file itself on line 16. No new user is ever given the role ORGANISER or ADMIN.
+
+Correct behaviour: 
 
 #8 ALL ERROR MESSAGES GENERIC. Too big a task to add cusomtised error messages for each error. This is one I won't fix.
